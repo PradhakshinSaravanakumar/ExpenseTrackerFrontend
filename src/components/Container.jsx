@@ -34,23 +34,29 @@ const Container = () => {
     const data = await response.json()
     setTransactions(data)
   }
+  
   const deleteExpense = async (id) => {
-  await fetch(`https://expensetrackerbackend-1-xt9d.onrender.com/deleteExpense/${id}`, {
-    method: "DELETE"
-  });
-  getAllExpense();
-  toast.success("DELETED SUCCESSFULLY");
+  try {
+    await fetch(`https://expensetrackerbackend-1-xt9d.onrender.com/deleteExpense/${id}`, {
+      method: "DELETE"
+    });
+    toast.success("DELETED SUCCESSFULLY");
+    getAllExpense();
+  } catch (error) {
+    toast.error("Error deleting expense");
+  }
 };
 
-  const updateExpense=(async (id,title,amount)=>{
-        let result = await fetch("https://expensetrackerbackend-1-xt9d.onrender.com/updateExpense",{
-            method:"PUT",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({id, title,amount})
-        })
-        toast.success("UPDATED SUCCESSFULLY")
-        getAllExpense();
-    })
+  const updateExpense = async (id, title, amount) => {
+  let result = await fetch(`https://expensetrackerbackend-1-xt9d.onrender.com/updateExpense/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title, amount })
+  });
+  toast.success("UPDATED SUCCESSFULLY");
+  getAllExpense();
+};
+
 
   const editExpense = (item) => {
     setEditItem(item);
