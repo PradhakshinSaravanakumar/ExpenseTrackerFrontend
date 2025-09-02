@@ -40,6 +40,7 @@ const Container = () => {
     await fetch(`https://expensetrackerbackend-1-xt9d.onrender.com/deleteExpense/${id}`, {
       method: "DELETE"
     });
+    
     getAllExpense();
   } catch (error) {
     toast.error("Error deleting expense");
